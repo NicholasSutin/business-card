@@ -1,7 +1,6 @@
 ---
 import Layout from "@/layouts/main.astro"
 import '../styles/global.css'
-import { ModeToggle } from '@/components/ModeToggle';
 ---
 
 <script is:inline>
@@ -13,7 +12,7 @@ import { ModeToggle } from '@/components/ModeToggle';
 	};
 	const isDark = getThemePreference() === 'dark';
 	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
- 
+
 	if (typeof localStorage !== 'undefined') {
 		const observer = new MutationObserver(() => {
 			const isDark = document.documentElement.classList.contains('dark');
@@ -25,6 +24,5 @@ import { ModeToggle } from '@/components/ModeToggle';
 
 <Layout>
   <div class="min-h-screen w-full">
-    <!-- <ModeToggle client:load />-->
   </div>
 </Layout>
