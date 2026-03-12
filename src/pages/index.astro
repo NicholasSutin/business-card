@@ -1,17 +1,30 @@
 ---
 import Layout from "@/layouts/main.astro"
-import { Button } from "@/components/ui/button"
+import '../styles/global.css'
+import { ModeToggle } from '@/components/ModeToggle';
 ---
 
+<script is:inline>
+	const getThemePreference = () => {
+		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+			return localStorage.getItem('theme');
+		}
+		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	};
+	const isDark = getThemePreference() === 'dark';
+	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+ 
+	if (typeof localStorage !== 'undefined') {
+		const observer = new MutationObserver(() => {
+			const isDark = document.documentElement.classList.contains('dark');
+			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+		});
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+	}
+</script>
+
 <Layout>
-  <div class="flex min-h-svh p-6">
-    <div class="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-      <div>
-        <h1 class="font-medium">Project ready!</h1>
-        <p>You may now add components and start building.</p>
-        <p>We've already added the button component for you.</p>
-        <Button client:load className="mt-2">Button</Button>
-      </div>
-    </div>
+  <div class="min-h-screen w-full">
+    <!-- <ModeToggle client:load />-->
   </div>
 </Layout>
