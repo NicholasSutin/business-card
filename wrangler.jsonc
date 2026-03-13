@@ -1,0 +1,8 @@
+{
+  "name": "business-card-placeholder",
+  // Set this to today's date
+  "compatibility_date": "2026-03-13",
+  "assets": {
+    "directory": "./dist"
+  }
+}
